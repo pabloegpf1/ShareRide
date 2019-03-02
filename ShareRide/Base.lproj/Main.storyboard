@@ -19,11 +19,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Pc-AJ-ari">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <rect key="frame" x="168" y="318" width="38" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Login"/>
                                 <connections>
-                                    <segue destination="Cwh-jH-eWo" kind="show" id="1qx-df-GFT"/>
+                                    <segue destination="xbr-Sl-OiQ" kind="show" id="kYH-Pn-4sD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQS-Up-EeT">
+                                <rect key="frame" x="164" y="375" width="54" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <segue destination="uh1-gG-RSG" kind="show" id="ySU-jP-NP3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -34,7 +42,43 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OYB-VF-Jvr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2369" y="207"/>
+            <point key="canvasLocation" x="1296.8" y="256.82158920539734"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="hIt-JD-TUk">
+            <objects>
+                <viewController id="xbr-Sl-OiQ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uu3-gL-x9d">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Sve-ib-NFr"/>
+                    </view>
+                    <connections>
+                        <segue destination="Cwh-jH-eWo" kind="show" identifier="loginToHome" id="9xS-0w-jNT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9PW-Zu-EFl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2268" y="-137"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="9HJ-TT-Qlw">
+            <objects>
+                <viewController id="uh1-gG-RSG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bJ5-aL-ZYj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="CCA-yM-dRn"/>
+                    </view>
+                    <connections>
+                        <segue destination="Cwh-jH-eWo" kind="show" identifier="signupToHome" id="DP6-Td-2KU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ttV-yG-cPH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2307" y="647"/>
         </scene>
         <!--Rides-->
         <scene sceneID="6Xb-rt-xIV">
@@ -146,7 +190,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T7z-rA-00S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1482" y="208"/>
+            <point key="canvasLocation" x="409" y="258"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="DP6-Td-2KU"/>
+    </inferredMetricsTieBreakers>
 </document>
