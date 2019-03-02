@@ -38,6 +38,7 @@ class UserAuth: UIViewController {
         }
     }
     
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     @IBOutlet weak var email_signup: UITextField!
@@ -46,6 +47,13 @@ class UserAuth: UIViewController {
     
     @IBOutlet weak var passwordConfirm_signup: UITextField!
     
+    @IBOutlet weak var fname: UITextField!
+    
+    @IBOutlet weak var lname: UITextField!
+    
+    @IBOutlet weak var secemail: UITextField!
+    
+    @IBOutlet weak var phoneno: UITextField!
     
     @IBAction func signuptriggered(_ sender: UIButton) {
         
@@ -56,11 +64,22 @@ class UserAuth: UIViewController {
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
         }
+            
+        else if (fname.text?.isEmpty ?? false || lname.text?.isEmpty ?? false || phoneno.text?.isEmpty ?? false){
+            let alertController = UIAlertController(title: "Fields Missing", message: "Please fill all the information", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+            
         else{
             Auth.auth().createUser(withEmail: email_signup.text!, password: password_signup.text!){ (user, error) in
                 if error == nil {
                     self.performSegue(withIdentifier: "signupToHome", sender: self)
                 }
+                    
                 else{
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
