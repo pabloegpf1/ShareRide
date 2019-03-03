@@ -30,7 +30,7 @@ class NewRide: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
                 "driver": Auth.auth().currentUser?.displayName!,
                 "dropoff_location": addressLabel.text!,
                 "start_time": "\(timeLabel.date)",
-                "cost": Int.random(in: 0..<15),
+                "cost": Int.random(in: 5..<15),
                 "max_riders": maxPeopleLabel.selectedRow(inComponent: 0),
                 "driverid": Auth.auth().currentUser?.uid
                 ])
