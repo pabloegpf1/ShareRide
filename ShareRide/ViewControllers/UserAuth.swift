@@ -8,6 +8,7 @@
 //
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class UserAuth: UIViewController {
     
@@ -53,6 +54,8 @@ class UserAuth: UIViewController {
     
     @IBOutlet weak var secemail: UITextField!
     
+    
+    
     @IBOutlet weak var phoneno: UITextField!
     
     @IBAction func signuptriggered(_ sender: UIButton) {
@@ -77,6 +80,10 @@ class UserAuth: UIViewController {
         else{
             Auth.auth().createUser(withEmail: email_signup.text!, password: password_signup.text!){ (user, error) in
                 if error == nil {
+                    let user = Auth.auth().currentUser
+                    user!.createProfileChangeRequest().displayName = "\(self.fname.text!) \(self.lname.text!)"
+                    
+                  
                     self.performSegue(withIdentifier: "signupToHome", sender: self)
                 }
                     
