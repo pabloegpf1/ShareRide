@@ -9,85 +9,67 @@
 import UIKit
 import Firebase
 
-class RidesTable: UITableViewController {
+var selectedRide:Ride!
+
+class RidesTable: UIViewController {
+    
+    @IBOutlet var ridesTable: UITableView!
+    
+    var refRides: DatabaseReference!
+    var rideList = [Ride]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getRidesList()
-    }
+        getRideList()
+        ridesTable.delegate = self
+        ridesTable.dataSource = self
+        }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func getRidesList() {
-        ref.child("rides").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                let rideID = snap.key
-               // let driver = snap.value.driver
-            //    print("rideID = \(driver)")
+    func getRideList(){
+        refRides = ref.child("rides");
+        refRides.observe(DataEventType.value, with: { (snapshot) in
+            
+            if snapshot.childrenCount > 0 {
+                
+                self.rideList.removeAll()
+                
+                for ride in snapshot.children.allObjects as! [DataSnapshot] {
+                    let rideObject = ride.value as? [String: AnyObject]
+                    let id = "\(ride.key)"
+                    let cost = rideObject?["cost"] as? Float
+                    let driver  = rideObject?["driver"] as? String
+                    let dropoff_location  = rideObject?["dropoff_location"] as? String
+                    let max_riders = rideObject?["max_riders"] as? Int
+                    let time = rideObject?["start_time"] as? String
+                    
+                    let ride = Ride(id: "\(id)", driver: driver!, time:time!, dropoff_location: dropoff_location!, cost: cost!, max_riders: max_riders!)
+                    
+                    self.rideList.append(ride)
+                }
+                
+                self.ridesTable.reloadData()
             }
         })
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "rideInfo"){
+            var selectedIndex = ridesTable.indexPathForSelectedRow
+            selectedRide = rideList[selectedIndex?.row ?? 0]
+        }
+    }
+}
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+extension RidesTable : UITableViewDataSource, UITableViewDelegate{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return rideList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let ride = rideList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RideTableCell") as! RideTableCell
+        cell.setRide(driver: ride.driver, time: ride.time, cost: "\(ride.cost)")
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
