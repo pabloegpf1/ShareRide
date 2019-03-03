@@ -14,7 +14,11 @@ class UserAuth: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .black
     }
     
     @IBOutlet weak var email_login: UITextField!
@@ -80,9 +84,13 @@ class UserAuth: UIViewController {
         else{
             Auth.auth().createUser(withEmail: email_signup.text!, password: password_signup.text!){ (user, error) in
                 if error == nil {
-                    let user = Auth.auth().currentUser
-                    user!.createProfileChangeRequest().displayName = "\(self.fname.text!) \(self.lname.text!)"
-                    
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    let firstname = self.fname.text!
+                    print("USER_: \(firstname)")
+                    changeRequest?.displayName = "\(self.fname.text!) \(self.lname.text!)"
+                    changeRequest?.commitChanges { (error) in
+                        
+                    }
                   
                     self.performSegue(withIdentifier: "signupToHome", sender: self)
                 }

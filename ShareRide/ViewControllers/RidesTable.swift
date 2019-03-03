@@ -48,13 +48,15 @@ class RidesTable: UIViewController {
                 for ride in snapshot.children.allObjects as! [DataSnapshot] {
                     let rideObject = ride.value as? [String: AnyObject]
                     let id = "\(ride.key)"
-                    let cost = rideObject?["cost"] as? String
+                    let cost = rideObject?["cost"] as? Int
                     let driver  = rideObject?["driver"] as? String
                     let dropoff_location  = rideObject?["dropoff_location"] as? String
                     let max_riders = rideObject?["max_riders"] as? Int
                     let time = rideObject?["start_time"] as? String
+                    let driverid = rideObject?["driverid"] as? String
+                    let range = time!.index(time!.startIndex, offsetBy: 5)..<time!.index(time!.endIndex, offsetBy: -9)
                     
-                    let ride = Ride(id: "\(id)", driver: driver!, time:time!, dropoff_location: dropoff_location!, cost: cost!, max_riders: max_riders!)
+                    let ride = Ride(id: "\(id)", driver: driver!, time:String(time![range]), dropoff_location: dropoff_location!, cost: String(cost!), max_riders: max_riders!, driverid: driverid!)
                     
                     self.rideList.append(ride)
                 }
