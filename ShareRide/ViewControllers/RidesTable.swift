@@ -20,11 +20,23 @@ class RidesTable: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated:true);
         getRideList()
         ridesTable.delegate = self
         ridesTable.dataSource = self
         }
-    
+    @IBAction func logOutTriggered(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+        }
+        catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let initial = storyboard.instantiateInitialViewController()
+        UIApplication.shared.keyWindow?.rootViewController = initial
+    }
     func getRideList(){
         refRides = ref.child("rides");
         refRides.observe(DataEventType.value, with: { (snapshot) in
