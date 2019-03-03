@@ -68,7 +68,7 @@ extension RidesTable : UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let ride = rideList[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "RideTableCell") as! RideTableCell
-        cell.setRide(driver: ride.driver, time: ride.time, cost: "\(ride.cost)")
+        cell.setRide(driver: ride.driver, time: ride.time, cost: "\(ride.cost)",address: ride.dropoff_location)
         return cell
     }
     
