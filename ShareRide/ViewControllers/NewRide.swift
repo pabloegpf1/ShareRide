@@ -45,5 +45,8 @@ class NewRide: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerData[row]
     }
+    @IBAction func tapOnScreen(_ sender: Any) {
+         view.endEditing(true)
+    }
     
 }
