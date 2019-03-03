@@ -19,6 +19,9 @@ class RideDetails: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var map: MKMapView!
     
+    var center: CLLocationCoordinate2D!
+    var region: MKCoordinateRegion!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         populateRideInfo()
@@ -39,7 +42,6 @@ class RideDetails: UIViewController {
     
     func setupMap(){
         let address = "\(selectedRide.dropoff_location),San Francisco, CA"
-        
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard
@@ -50,13 +52,24 @@ class RideDetails: UIViewController {
                     return
             }
             let annotation = MKPointAnnotation()
-            let center = location.coordinate
-            annotation.coordinate = center
+            self.center = location.coordinate
+            annotation.coordinate = self.center
             annotation.title = selectedRide.dropoff_location
             self.map.addAnnotation(annotation)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            self.map.setRegion(region, animated: true)
+            self.region = MKCoordinateRegion(center: self.center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            self.map.setRegion(self.region, animated: true)
         }
     }
-
+    
+    @IBAction func tapOnMap(_ sender: Any) {
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: self.region.center),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: self.region.span)
+        ]
+        let placemark = MKPlacemark(coordinate: center, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = "DropOff"
+        mapItem.openInMaps(launchOptions: options)
+    }
+    
 }
