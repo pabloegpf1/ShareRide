@@ -21,16 +21,18 @@ class NewRide: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         super.viewDidLoad()
         self.maxPeopleLabel.delegate = self
         self.maxPeopleLabel.dataSource = self
+        self.timeLabel.minimumDate = Date()
     }
 
     @IBAction func doneButtonClicked(_ sender: Any) {
         ref.child("rides").childByAutoId()
             .setValue([
-                "driver": Auth.auth().currentUser?.uid ?? "",
+                "driver": Auth.auth().currentUser?.displayName!,
                 "dropoff_location": addressLabel.text!,
                 "start_time": "\(timeLabel.date)",
-                "cost": "3",
-                "max_riders": maxPeopleLabel.selectedRow(inComponent: 0)
+                "cost": Int.random(in: 0..<15),
+                "max_riders": maxPeopleLabel.selectedRow(inComponent: 0),
+                "driverid": Auth.auth().currentUser?.uid
                 ])
     }
     

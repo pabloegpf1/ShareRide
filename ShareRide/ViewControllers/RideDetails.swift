@@ -18,25 +18,36 @@ class RideDetails: UIViewController {
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var map: MKMapView!
+    @IBOutlet weak var joinRideButton: UIButton!
     
     var center: CLLocationCoordinate2D!
     var region: MKCoordinateRegion!
+    var isOwner = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         populateRideInfo()
         setupMap()
+        if(Auth.auth().currentUser?.uid == selectedRide.driverid){
+            isOwner = true
+            joinRideButton.setTitle("Delete Ride" , for: .normal)
+            joinRideButton.setTitleColor(UIColor.red, for: .normal)
+        }
     }
     
     @IBAction func joinRide(_ sender: Any) {
-        ref.child("riders/\(selectedRide.id)").child((Auth.auth().currentUser?.uid)!)
-            .setValue(Auth.auth().currentUser?.email)
+        if(isOwner){
+            ref.child("rides/\(selectedRide.id)").removeValue()
+        }else{
+            ref.child("riders/\(selectedRide.id)").child((Auth.auth().currentUser?.uid)!)
+                .setValue(Auth.auth().currentUser?.displayName)
+        }
     }
     
     func populateRideInfo(){
         driverLabel.text = selectedRide.driver
         maxRidersLabel.text = "\(selectedRide.max_riders)"
-        costLabel.text = "\(selectedRide.cost)"
+        costLabel.text = "$\(selectedRide.cost)"
         timeLabel.text = selectedRide.time
     }
     
