@@ -36,7 +36,7 @@ class RidesTable: UIViewController {
                 for ride in snapshot.children.allObjects as! [DataSnapshot] {
                     let rideObject = ride.value as? [String: AnyObject]
                     let id = "\(ride.key)"
-                    let cost = rideObject?["cost"] as? Float
+                    let cost = rideObject?["cost"] as? String
                     let driver  = rideObject?["driver"] as? String
                     let dropoff_location  = rideObject?["dropoff_location"] as? String
                     let max_riders = rideObject?["max_riders"] as? Int

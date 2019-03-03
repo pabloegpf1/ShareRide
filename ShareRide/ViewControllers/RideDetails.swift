@@ -22,7 +22,7 @@ class RideDetails: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         populateRideInfo()
-        createMap()
+        setupMap()
     }
     
     @IBAction func joinRide(_ sender: Any) {
@@ -37,15 +37,8 @@ class RideDetails: UIViewController {
         timeLabel.text = selectedRide.time
     }
     
-    func createMap(){
-        let annotation = MKPointAnnotation()  // <-- new 7instance here
-        /*annotation.coordinate = points[index]
-        annotation.title = "Point \(index+1)"
-        map.addAnnotation(annotation)*/
-    }
-    
-    func getCoordinatesFromAdress(){
-        let address = "1 Infinite Loop, Cupertino, CA 95014"
+    func setupMap(){
+        let address = "\(selectedRide.dropoff_location),San Francisco, CA"
         
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
@@ -56,8 +49,13 @@ class RideDetails: UIViewController {
                     // handle no location found
                     return
             }
-            
-            
+            let annotation = MKPointAnnotation()
+            let center = location.coordinate
+            annotation.coordinate = center
+            annotation.title = selectedRide.dropoff_location
+            self.map.addAnnotation(annotation)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            self.map.setRegion(region, animated: true)
         }
     }
 

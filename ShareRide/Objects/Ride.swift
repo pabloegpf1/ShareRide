@@ -14,9 +14,9 @@ class Ride {
     var driver : String
     var time : String
     var dropoff_location : String
-    var cost : Float
+    var cost : String
     var max_riders : Int
-    init(id:String,driver:String,time:String,dropoff_location:String,cost:Float,max_riders:Int) {
+    init(id:String,driver:String,time:String,dropoff_location:String,cost:String,max_riders:Int) {
             self.id = id
             self.driver = driver
             self.time = time
