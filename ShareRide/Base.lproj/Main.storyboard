@@ -356,7 +356,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SNN-dE-gGW">
                                 <rect key="frame" x="16" y="4.6666666666666679" width="83" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Log out"/>
                                 <connections>
                                     <action selector="logOutTriggered:" destination="SyH-Cx-3t9" eventType="touchUpInside" id="IVl-Vo-0zd"/>
@@ -456,7 +456,7 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gw2-DG-fpj">
-                                <rect key="frame" x="129" y="620" width="117" height="52"/>
+                                <rect key="frame" x="66" y="620" width="243" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                 <state key="normal" title="Join Ride"/>
@@ -611,9 +611,6 @@
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zdL-bw-wnI">
                         <autoresizingMask key="autoresizingMask"/>
@@ -631,8 +628,7 @@
         <image name="logo_only_transparent" width="380" height="413"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4j5-hH-h3v"/>
-        <segue reference="oEo-O6-Dq9"/>
+        <segue reference="tz2-eH-Yp9"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
